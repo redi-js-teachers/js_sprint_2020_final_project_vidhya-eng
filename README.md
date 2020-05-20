@@ -8,6 +8,10 @@ Student Name: {student-name}
 
 {short explanation of your application}
 
+## Screenshots
+
+![screen shot](docs/screen_cap.png)
+
 ## Features:
 
 - {feature 1}

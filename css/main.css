@@ -1,0 +1,16 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+button {
+    transform: scale(5);
+    box-sizing: border-box;
+}
+
+button:hover {
+    cursor: pointer;
+}
