@@ -1,0 +1,28 @@
+    #searchBar {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
+    
+    .submitBtn {
+        margin-left: 20px;
+        margin-top: 0px;
+        width: 80px;
+        height: 80px;
+        color: orange;
+    }
+    
+    .leftContainer {
+        width: 64%;
+        margin-left: 10px;
+    }
+    
+    .rightContainer {
+        border: 1px solid grey;
+        width: 35%;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        bottom: 0px;
+        /* z-index: -1; */
+    }
