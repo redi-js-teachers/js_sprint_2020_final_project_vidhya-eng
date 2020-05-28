@@ -1,0 +1,50 @@
+    #searchBar {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
+    
+    .submitBtn {
+        margin-left: 20px;
+        margin-top: 0px;
+        width: 80px;
+        height: 80px;
+        color: orange;
+    }
+    
+    .leftContainer {
+        width: 65%;
+        margin-left: 0px;
+        background-image: url("https://images.pexels.com/photos/267151/pexels-photo-267151.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+        height: 100%;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    
+    h1 {
+        color: white;
+    }
+    
+    .rightContainer {
+        display: flex;
+        flex-direction: column;
+        border: 1px lightgray;
+        width: 35%;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        bottom: 0px;
+        background-color: #2d3436;
+        background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);
+        /* z-index: -1; */
+    }
+    
+    .rightContainer h3 {
+        color: white;
+        padding-left: 15px;
+    }
+    
+    .rightContainer p {
+        color: white;
+        padding-left: 15px;
+    }
