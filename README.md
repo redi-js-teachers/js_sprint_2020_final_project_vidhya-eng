@@ -10,7 +10,7 @@ Student Name: {Vidhya Krishnan}
 
 ## Screenshots
 
-![screen shot](C:\Final Project\js_sprint_2020_final_project_vidhya-eng\outline.PNG)
+![screen shot](outline.PNG)
 
 ## Features:
 
