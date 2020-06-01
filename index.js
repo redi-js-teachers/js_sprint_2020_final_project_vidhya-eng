@@ -1,3 +1,4 @@
+
  const date = new Date();
  const n = date.toDateString();
  const time = date.toLocaleTimeString();
@@ -42,3 +43,8 @@
          })
          .catch(error => alert("Wrong City Name"))
  });
+
+
+
+
+
