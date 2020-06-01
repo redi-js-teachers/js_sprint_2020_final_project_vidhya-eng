@@ -1,3 +1,4 @@
+
  const date = new Date();
  document.getElementById('timeandDate').innerHTML = `${date.toDateString()}, ${date.toLocaleTimeString()}`;
  document.getElementById('timeandDate').style.color = "white";
@@ -40,3 +41,8 @@
          })
          .catch(error => alert("Wrong City Name"))
  });
+
+
+
+
+
