@@ -1,7 +1,5 @@
  const date = new Date();
- const n = date.toDateString();
- const time = date.toLocaleTimeString();
- document.getElementById('timeandDate').innerHTML = n + ' ,' + time;
+ document.getElementById('timeandDate').innerHTML = `${date.toDateString()}, ${date.toLocaleTimeString()}`;
  document.getElementById('timeandDate').style.color = "white";
  document.getElementById('timeandDate').style.marginTop = "200px";
  document.getElementById('timeandDate').style.marginLeft = "250px";
