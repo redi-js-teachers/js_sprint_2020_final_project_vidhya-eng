@@ -4,13 +4,16 @@ Application Name: Weather-app
 
 Student Name: Vidhya Krishnan
 
+
 ## app-name
+
 
 Weather app which accepts user information in the form of placenames and displays the weather of the respective place
 
+
 ## Screenshots
 
-![screen shot](docs/screen_cap.png)
+![screen shot](outline.PNG)
 
 ## Features:
 
@@ -18,3 +21,4 @@ Weather app which accepts user information in the form of placenames and display
 -Background Image that changes according to the user information
 -Animated Icon or icon that changes according to weather
 -current time and Date is displayed
+
