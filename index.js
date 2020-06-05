@@ -1,10 +1,5 @@
 const date = new Date();
 document.getElementById('timeandDate').innerHTML = document.getElementById('timeandDate').innerHTML = `${date.toDateString()}, ${date.toLocaleTimeString()}`;
-document.getElementById('timeandDate').style.color = "white";
-document.getElementById('timeandDate').style.marginTop = "350px";
-document.getElementById('timeandDate').style.marginLeft = "250px";
-document.getElementById('timeandDate').style.fontSize = "25px";
-
 const temperatureCmp = document.getElementById("weatherTemperature");
 const nameCmp = document.getElementById("name");
 const weatherMaxTempCmp = document.getElementById("weatherMaxTemp");
@@ -40,7 +35,6 @@ searchBtnCmp.addEventListener("click", function() {
         })
         .catch(error => alert("Wrong City Name"))
 });
-const mondayCmp = document.getElementById("selectMonday");
 const daysList = document.getElementById("getDaysList");
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
 const nextDays = 4;
@@ -51,8 +45,6 @@ function createDays() {
     for (let i = 0; i < nextDays; i++) {
         let newDate = new Date(today.setDate(today.getDate() + 1));
         daysSorted.push(days[newDate.getDay()]);
-    }
-    for (let i = 0; i < daysSorted.length; i++) {
         let newLiElement = document.createElement("li");
         newLiElement.textContent = daysSorted[i];
         daysList.appendChild(newLiElement);
@@ -68,46 +60,39 @@ function generateFiveDayForecast() {
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            let firstDayNewTemp = document.createElement("span");
-            firstDayNewTemp.innerHTML = data.list[1].main.temp;
-            document.querySelectorAll("ul > li")[0].appendChild(firstDayNewTemp);
-            firstDayNewTemp.style.marginLeft = "70px";
-            let firstDayIcon = data.list[0].weather[0].icon;
-            let firstImageUrl = "http://openweathermap.org/img/wn/" + firstDayIcon + "@2x.png";
-            let firstNewIcon = document.createElement("span");
-            firstNewIcon.innerHTML = "<img src=" + firstImageUrl + ">";
-            document.querySelectorAll("ul > li")[0].appendChild(firstNewIcon);
-            firstNewIcon.style.marginLeft = "30px";
-            let secondDayNewTemp = document.createElement("span");
-            secondDayNewTemp.innerHTML = data.list[2].main.temp;
-            document.querySelectorAll("ul > li")[1].appendChild(secondDayNewTemp);
-            secondDayNewTemp.style.marginLeft = "70px";
-            let secondDayIcon = data.list[2].weather[0].icon;
-            let secondImageUrl = "http://openweathermap.org/img/wn/" + secondDayIcon + "@2x.png";
-            let secondNewIcon = document.createElement("span");
-            secondNewIcon.innerHTML = "<img src=" + secondImageUrl + ">";
-            document.querySelectorAll("ul > li")[1].appendChild(secondNewIcon);
-            secondNewIcon.style.marginLeft = "30px";
-            let thirdDayNewTemp = document.createElement("span");
-            thirdDayNewTemp.innerHTML = data.list[10].main.temp;
-            document.querySelectorAll("ul > li")[2].appendChild(thirdDayNewTemp);
-            thirdDayNewTemp.style.marginLeft = "70px";
-            let thirdDayIcon = data.list[10].weather[0].icon;
-            let thirdImageUrl = "http://openweathermap.org/img/wn/" + thirdDayIcon + "@2x.png";
-            let thirdNewIcon = document.createElement("span");
-            thirdNewIcon.innerHTML = "<img src=" + thirdImageUrl + ">";
-            document.querySelectorAll("ul > li")[2].appendChild(thirdNewIcon);
-            thirdNewIcon.style.marginLeft = "30px";
-            let fourthDayNewTemp = document.createElement("span");
-            fourthDayNewTemp.innerHTML = data.list[18].main.temp;
-            document.querySelectorAll("ul > li")[3].appendChild(fourthDayNewTemp);
-            fourthDayNewTemp.style.marginLeft = "70px";
-            let fourthDayIcon = data.list[18].weather[0].icon;
-            let fourthImageUrl = "http://openweathermap.org/img/wn/" + fourthDayIcon + "@2x.png";
-            let fourthNewIcon = document.createElement("span");
-            fourthNewIcon.innerHTML = "<img src=" + fourthImageUrl + ">";
-            document.querySelectorAll("ul > li")[3].appendChild(fourthNewIcon);
-            fourthNewIcon.style.marginLeft = "30px";
+            let tempArray = [];
+            tempArray.push(data.list[1].main.temp);
+            tempArray.push(data.list[2].main.temp);
+            tempArray.push(data.list[10].main.temp);
+            tempArray.push(data.list[18].main.temp);
+
+            function displayTemperature() {
+                let listItem = document.querySelectorAll("ul > li");
+                for (let i = 0; i < tempArray.length && i < listItem.length; i++) {
+                    let newTempEle = document.createElement("span");
+                    newTempEle.classList.add("temperatureStyle")
+                    newTempEle.innerHTML = tempArray[i];
+                    listItem[i].appendChild(newTempEle);
+                }
+            }
+            displayTemperature();
+            let iconArray = [];
+            iconArray.push(data.list[0].weather[0].icon);
+            iconArray.push(data.list[2].weather[0].icon);
+            iconArray.push(data.list[10].weather[0].icon);
+            iconArray.push(data.list[18].weather[0].icon);
+
+            function createIcon() {
+                let iconSet = document.querySelectorAll("ul > li");
+                for (let i = 0; i < iconArray.length && i < iconSet.length; i++) {
+                    let newIconEle = document.createElement("span");
+                    newIconEle.classList.add("iconStyle");
+                    let imageUrl = "http://openweathermap.org/img/wn/" + iconArray[i] + "@2x.png";
+                    newIconEle.innerHTML = "<img src=" + imageUrl + ">";
+                    iconSet[i].appendChild(newIconEle);
+                }
+            }
+            createIcon();
         });
 }
 generateFiveDayForecast();
