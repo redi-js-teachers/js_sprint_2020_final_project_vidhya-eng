@@ -1,7 +1,11 @@
 const date = new Date();
 document.getElementById('timeandDate').innerHTML = document.getElementById('timeandDate').innerHTML = `${date.toDateString()}, ${date.toLocaleTimeString()}`;
-document.getElementById('timeandDate').style.color = "white";
-document.getElementById('timeandDate').style.marginTop = "200px";
+document.getElementById('timeandDate').style.color = "white"; <<
+<< << < HEAD
+document.getElementById('timeandDate').style.marginTop = "200px"; ===
+=== =
+document.getElementById('timeandDate').style.marginTop = "350px"; >>>
+>>> > 3 bf58c323df7793d7748949b499fb3d2db13f991
 document.getElementById('timeandDate').style.marginLeft = "250px";
 document.getElementById('timeandDate').style.fontSize = "25px";
 const temperatureCmp = document.getElementById("weatherTemperature");
