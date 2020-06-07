@@ -1,11 +1,7 @@
 const date = new Date();
 document.getElementById('timeandDate').innerHTML = document.getElementById('timeandDate').innerHTML = `${date.toDateString()}, ${date.toLocaleTimeString()}`;
-document.getElementById('timeandDate').style.color = "white"; <<
-<< << < HEAD
-document.getElementById('timeandDate').style.marginTop = "200px"; ===
-=== =
-document.getElementById('timeandDate').style.marginTop = "350px"; >>>
->>> > 3 bf58c323df7793d7748949b499fb3d2db13f991
+document.getElementById('timeandDate').style.color = "white";
+document.getElementById('timeandDate').style.marginTop = "350px";
 document.getElementById('timeandDate').style.marginLeft = "250px";
 document.getElementById('timeandDate').style.fontSize = "25px";
 const temperatureCmp = document.getElementById("weatherTemperature");
@@ -63,44 +59,61 @@ function createDays() {
 };
 createDays();
 
-function generateFiveDayForecast() {
-    const apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=Munich&units=metric&appid=08a09c29086a3f06cd37337b12b1711f";
-    fetch(apiUrl)
+
+const apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=Munich&units=metric&appid=08a09c29086a3f06cd37337b12b1711f";
+fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+        let tempArray = [];
+        tempArray.push(data.list[1].main.temp);
+        tempArray.push(data.list[2].main.temp);
+        tempArray.push(data.list[10].main.temp);
+        tempArray.push(data.list[18].main.temp);
+
+        function displayTemperature() {
+            let listItem = document.querySelectorAll("ul > li");
+            for (let i = 0; i < tempArray.length && i < listItem.length; i++) {
+                let newTempEle = document.createElement("span");
+                newTempEle.classList.add("temperatureStyle")
+                newTempEle.innerHTML = tempArray[i];
+                listItem[i].appendChild(newTempEle);
+            }
+        }
+        displayTemperature();
+        let iconArray = [];
+        iconArray.push(data.list[0].weather[0].icon);
+        iconArray.push(data.list[2].weather[0].icon);
+        iconArray.push(data.list[10].weather[0].icon);
+        iconArray.push(data.list[18].weather[0].icon);
+
+        function createIcon() {
+            let iconSet = document.querySelectorAll("ul > li");
+            for (let i = 0; i < iconArray.length && i < iconSet.length; i++) {
+                let newIconEle = document.createElement("span");
+                newIconEle.classList.add("iconStyle");
+                let imageUrl = "http://openweathermap.org/img/wn/" + iconArray[i] + "@2x.png";
+                newIconEle.innerHTML = "<img src=" + imageUrl + ">";
+                iconSet[i].appendChild(newIconEle);
+            }
+        }
+        createIcon();
+    });
+
+/* tried to fetch api url from flicker for changing background images,but encountering with an error */
+searchBtnCmp.addEventListener("click", function() {
+
+    const cityUrl = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=528fc5e2ec09109cd0696b0555e7bc81&tags=" + weatherSearchBar.value + "&format=json&nojsoncallback=1";
+    console.log(cityUrl);
+    fetch(cityUrl)
         .then(response => response.json())
         .then(data => {
-            let tempArray = [];
-            tempArray.push(data.list[1].main.temp);
-            tempArray.push(data.list[2].main.temp);
-            tempArray.push(data.list[10].main.temp);
-            tempArray.push(data.list[18].main.temp);
 
-            function displayTemperature() {
-                let listItem = document.querySelectorAll("ul > li");
-                for (let i = 0; i < tempArray.length && i < listItem.length; i++) {
-                    let newTempEle = document.createElement("span");
-                    newTempEle.classList.add("temperatureStyle")
-                    newTempEle.innerHTML = tempArray[i];
-                    listItem[i].appendChild(newTempEle);
-                }
-            }
-            displayTemperature();
-            let iconArray = [];
-            iconArray.push(data.list[0].weather[0].icon);
-            iconArray.push(data.list[2].weather[0].icon);
-            iconArray.push(data.list[10].weather[0].icon);
-            iconArray.push(data.list[18].weather[0].icon);
-
-            function createIcon() {
-                let iconSet = document.querySelectorAll("ul > li");
-                for (let i = 0; i < iconArray.length && i < iconSet.length; i++) {
-                    let newIconEle = document.createElement("span");
-                    newIconEle.classList.add("iconStyle");
-                    let imageUrl = "http://openweathermap.org/img/wn/" + iconArray[i] + "@2x.png";
-                    newIconEle.innerHTML = "<img src=" + imageUrl + ">";
-                    iconSet[i].appendChild(newIconEle);
-                }
-            }
-            createIcon();
-        });
-}
-generateFiveDayForecast();
+            let farmId = photos.photo[0].id;
+            let serverId = photos.photo[0].server;
+            let id = photos.photo[0].id;
+            let secretId = photos.photo[0].secret;
+            let backgroundImageUrl = "https://farm" + farmId + ".staticflickr.com/" + serverId + "/" + id + "_" + secretId + ".jpg";
+            console.log(backgroundImageUrl);
+            document.getElementsByClassName("leftContainer").css('background-image', 'url(' + backgroundImageUrl + ')');
+        })
+});
