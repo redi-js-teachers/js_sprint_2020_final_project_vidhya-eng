@@ -12,34 +12,32 @@
 <body>
     <div class="leftContainer">
         <h1>Light Weather</h1>
-
         <div id="weatherIcon"></div>
         <div id="inline">
             <span id="weatherTemperature"></span>
             <span id="name"></span>
         </div>
-    <p id="timeandDate"></p>
+        <p id="timeandDate"></p>
     </div>
     <div class="rightContainer">
-        <div class="form-group w-100 input-group">
+        <div class="form-group w-100 input-group inputList">
             <input type=" text " id="searchBar" class="form-control" placeholder="Enter The Location ">
             <span class="input-group-btn ">
               <button class="btn btn-warning submitBtn" id="searchBtn" type="button"> <i class="fa fa-search fa-lg "></i>
             </button>
             </span>
         </div>
-      <hr>
-        <h3>Weather Details</h3>
-        <p id="weatherCloudy ">Cloudy:</p>
-        <p id="weatherHumidity ">Humidity: </p>
-        <p id="weatherWind ">Wind:</p>
         <hr>
-      <h3>Next Days</h3>
-        <p>Monday:</p>
-        <p>Tuesday:</p>
-        <p>Wednesday:</p>
-        <p>Thursday:</p>
-        <p>Friday:</p>
+        <h3>Weather Details</h3>
+        <hr>
+        <div class="weatherContainer">
+            <p id="weatherCloudy">Description:</p>
+            <p id="weatherMaxTemp">Max-Temp:</p>
+            <p id="weatherWind">Wind:</p>
+        </div>
+        <hr>
+        <h3>Next Days</h3>
+        <ul id="nextDaysWeather"></ul>
     </div>
     <script src="index.js"></script>
 </body>
