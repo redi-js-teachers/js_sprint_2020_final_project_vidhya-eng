@@ -1,9 +1,5 @@
 const date = new Date();
-document.getElementById('timeandDate').innerHTML = document.getElementById('timeandDate').innerHTML = `${date.toDateString()}, ${date.toLocaleTimeString()}`;
-document.getElementById('timeandDate').style.color = "white";
-document.getElementById('timeandDate').style.marginTop = "350px";
-document.getElementById('timeandDate').style.marginLeft = "250px";
-document.getElementById('timeandDate').style.fontSize = "25px";
+document.getElementById('timeandDate').innerHTML = `${date.toDateString()}, ${date.toLocaleTimeString()}`;
 const temperatureCmp = document.getElementById("weatherTemperature");
 const nameCmp = document.getElementById("name");
 const weatherMaxTempCmp = document.getElementById("weatherMaxTemp");
@@ -39,7 +35,7 @@ searchBtnCmp.addEventListener("click", function() {
         })
         .catch(error => alert("Wrong City Name"))
 });
-const daysList = document.getElementById("getDaysList");
+const daysList = document.getElementById("nextDaysWeather");
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
 const nextDays = 4;
 
@@ -58,7 +54,6 @@ function createDays() {
     daysList.style.padding = "15px";
 };
 createDays();
-
 
 const apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=Munich&units=metric&appid=08a09c29086a3f06cd37337b12b1711f";
 fetch(apiUrl)
@@ -85,19 +80,7 @@ fetch(apiUrl)
         iconArray.push(data.list[2].weather[0].icon);
         iconArray.push(data.list[10].weather[0].icon);
         iconArray.push(data.list[18].weather[0].icon);
-
-        function createIcon() {
-            let iconSet = document.querySelectorAll("ul > li");
-            for (let i = 0; i < iconArray.length && i < iconSet.length; i++) {
-                let newIconEle = document.createElement("span");
-                newIconEle.classList.add("iconStyle");
-                let imageUrl = "http://openweathermap.org/img/wn/" + iconArray[i] + "@2x.png";
-                newIconEle.innerHTML = "<img src=" + imageUrl + ">";
-                iconSet[i].appendChild(newIconEle);
-            }
-        }
-        createIcon();
-    });
+    })
 
 /* tried to fetch api url from flicker for changing background images,but encountering with an error */
 searchBtnCmp.addEventListener("click", function() {
