@@ -1,10 +1,5 @@
 const date = new Date();
-document.getElementById('timeandDate').innerHTML = `${date.toDateString()}, ${date.toLocaleTimeString()}`;
-document.getElementById('timeandDate').style.color = "white";
-document.getElementById('timeandDate').style.marginTop = "200px";
-document.getElementById('timeandDate').style.marginLeft = "250px";
-document.getElementById('timeandDate').style.fontSize = "25px";
-
+document.getElementById('timeandDate').innerHTML = document.getElementById('timeandDate').innerHTML = `${date.toDateString()}, ${date.toLocaleTimeString()}`;
 const temperatureCmp = document.getElementById("weatherTemperature");
 const nameCmp = document.getElementById("name");
 const weatherMaxTempCmp = document.getElementById("weatherMaxTemp");
@@ -40,3 +35,94 @@ searchBtnCmp.addEventListener("click", function() {
         })
         .catch(error => alert("Wrong City Name"))
 });
+const daysList = document.getElementById("nextDaysWeather");
+const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+const nextDays = 4;
+
+function createDays() {
+    let today = new Date();
+    let daysSorted = [];
+    for (let i = 0; i < nextDays; i++) {
+        let newDate = new Date(today.setDate(today.getDate() + 1));
+        daysSorted.push(days[newDate.getDay()]);
+    }
+    for (let i = 0; i < daysSorted.length; i++) {
+        let newLiElement = document.createElement("li");
+        newLiElement.textContent = daysSorted[i];
+        daysList.appendChild(newLiElement);
+    }
+    daysList.style.color = "white";
+    daysList.style.listStyle = "none";
+    daysList.style.padding = "15px";
+};
+createDays();
+
+
+const apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=Munich&units=metric&appid=08a09c29086a3f06cd37337b12b1711f";
+fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+        let tempArray = [];
+        tempArray.push(data.list[1].main.temp);
+        tempArray.push(data.list[2].main.temp);
+        tempArray.push(data.list[10].main.temp);
+        tempArray.push(data.list[18].main.temp);
+
+        function displayTemperature() {
+            let listItem = document.querySelectorAll("ul > li");
+            for (let i = 0; i < tempArray.length && i < listItem.length; i++) {
+                let newTempEle = document.createElement("span");
+                newTempEle.classList.add("temperatureStyle")
+                newTempEle.innerHTML = tempArray[i];
+                listItem[i].appendChild(newTempEle);
+            }
+        }
+        displayTemperature();
+        let iconArray = [];
+        iconArray.push(data.list[0].weather[0].icon);
+        iconArray.push(data.list[2].weather[0].icon);
+        iconArray.push(data.list[10].weather[0].icon);
+        iconArray.push(data.list[18].weather[0].icon);
+
+        function createIcon() {
+            let iconSet = document.querySelectorAll("ul > li");
+            for (let i = 0; i < iconArray.length && i < iconSet.length; i++) {
+                let newIconEle = document.createElement("span");
+                newIconEle.classList.add("iconStyle");
+                let imageUrl = "http://openweathermap.org/img/wn/" + iconArray[i] + "@2x.png";
+                newIconEle.innerHTML = "<img src=" + imageUrl + ">";
+                iconSet[i].appendChild(newIconEle);
+            }
+        }
+        createIcon();
+    });
+searchBtnCmp.addEventListener("click", function() {
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const cityUrl = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ef3d8a6207b554e853fcfe4b900bd9b7&tags=" + weatherSearchBar.value + "&format=json&nojsoncallback=1";
+    console.log(cityUrl);
+    fetch(proxyurl + cityUrl)
+        .then(response => response.json())
+        .then(data => {
+
+            let farmId = data.photos.photo[0].id;
+            let serverId = data.photos.photo[0].server;
+            let id = data.photos.photo[0].id;
+            let secretId = data.photos.photo[0].secret;
+            let backgroundImageUrl = "https://farm" + farmId + ".staticflickr.com/" + serverId + "/" + id + "_" + secretId + ".jpg";
+            console.log(backgroundImageUrl);
+            document.getElementsByClassName("leftContainer").css('background-image', 'url(' + backgroundImageUrl + ')');
+        })
+});
+let i = 0;
+let txtHeading = 'Light Weather';
+let speed = 80;
+
+function typeWriter() {
+    if (i < txtHeading.length) {
+        document.getElementById("heading").innerHTML += txtHeading.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+    }
+
+}
+typeWriter();
