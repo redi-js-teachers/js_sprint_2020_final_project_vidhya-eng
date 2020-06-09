@@ -57,7 +57,6 @@ function createDays() {
 };
 createDays();
 
-
 const apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=Munich&units=metric&appid=08a09c29086a3f06cd37337b12b1711f";
 fetch(apiUrl)
     .then(response => response.json())
