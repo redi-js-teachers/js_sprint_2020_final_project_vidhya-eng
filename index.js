@@ -1,5 +1,5 @@
 const date = new Date();
-document.getElementById('timeandDate').innerHTML = document.getElementById('timeandDate').innerHTML = `${date.toDateString()}, ${date.toLocaleTimeString()}`;
+document.getElementById('timeandDate').innerHTML = `${date.toDateString()}, ${date.toLocaleTimeString()}`;
 const temperatureCmp = document.getElementById("weatherTemperature");
 const nameCmp = document.getElementById("name");
 const weatherMaxTempCmp = document.getElementById("weatherMaxTemp");
@@ -8,6 +8,8 @@ const weatherWindCmp = document.getElementById("weatherWind");
 const weatherSearchBar = document.getElementById("searchBar");
 const searchBtnCmp = document.getElementById("searchBtn");
 const weatherIconCmp = document.getElementById("weatherIcon");
+const tempUnitCmp = document.getElementById("tempUnit");
+
 
 searchBtnCmp.addEventListener("click", function() {
     fetch('https://api.openweathermap.org/data/2.5/weather?q=' + weatherSearchBar.value + '&units=metric&appid=08a09c29086a3f06cd37337b12b1711f')
@@ -25,12 +27,16 @@ searchBtnCmp.addEventListener("click", function() {
             newCloudValue.classList.add("cloudMarginAdjustment");
             let newMaxTempValue = document.createElement("span");
             newMaxTempValue.classList.add("tempMarginAdjustment");
-            newMaxTempValue.innerHTML = data.main.temp_max;
+            newMaxTempValue.innerHTML = Math.round(data.main.temp_max);
+            let maxTempUnit = document.createElement("span");
+            maxTempUnit.innerHTML = "&#8451";
+            newMaxTempValue.appendChild(maxTempUnit);
             weatherMaxTempCmp.appendChild(newMaxTempValue);
             newCloudValue.innerHTML = data.weather[0].description;
             weatherCloudyCmp.appendChild(newCloudValue);
-            temperatureCmp.innerHTML = data.main.temp;
-            newWindVal.innerHTML = data.wind.speed;
+            temperatureCmp.innerHTML = Math.round(data.main.temp);
+            tempUnitCmp.innerHTML = "&#8451";
+            newWindVal.innerHTML = Math.round(data.wind.speed);
             weatherWindCmp.appendChild(newWindVal);
         })
         .catch(error => alert("Wrong City Name"))
@@ -97,32 +103,13 @@ fetch(apiUrl)
         createIcon();
     });
 searchBtnCmp.addEventListener("click", function() {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const cityUrl = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ef3d8a6207b554e853fcfe4b900bd9b7&tags=" + weatherSearchBar.value + "&format=json&nojsoncallback=1";
+    const cityUrl = "https://pixabay.com/api/?key=17019291-54fb257821b3ff9d5c88bcf61&q=" + weatherSearchBar.value + "&image_type=photo&pretty=true";
     console.log(cityUrl);
-    fetch(proxyurl + cityUrl)
+    fetch(cityUrl)
         .then(response => response.json())
         .then(data => {
-
-            let farmId = data.photos.photo[0].id;
-            let serverId = data.photos.photo[0].server;
-            let id = data.photos.photo[0].id;
-            let secretId = data.photos.photo[0].secret;
-            let backgroundImageUrl = "https://farm" + farmId + ".staticflickr.com/" + serverId + "/" + id + "_" + secretId + ".jpg";
+            const backgroundImageUrl = data.hits[0].largeImageURL;
             console.log(backgroundImageUrl);
-            document.getElementsByClassName("leftContainer").css('background-image', 'url(' + backgroundImageUrl + ')');
+            document.getElementsByClassName("leftContainer")[0].style.backgroundImage = `url(${backgroundImageUrl})`;
         })
 });
-let i = 0;
-let txtHeading = 'Light Weather';
-let speed = 80;
-
-function typeWriter() {
-    if (i < txtHeading.length) {
-        document.getElementById("heading").innerHTML += txtHeading.charAt(i);
-        i++;
-        setTimeout(typeWriter, speed);
-    }
-
-}
-typeWriter();
