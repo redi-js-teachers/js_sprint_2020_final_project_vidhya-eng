@@ -8,6 +8,8 @@ const weatherWindCmp = document.getElementById("weatherWind");
 const weatherSearchBar = document.getElementById("searchBar");
 const searchBtnCmp = document.getElementById("searchBtn");
 const weatherIconCmp = document.getElementById("weatherIcon");
+const tempUnitCmp = document.getElementById("tempUnit");
+
 
 searchBtnCmp.addEventListener("click", function() {
     fetch('https://api.openweathermap.org/data/2.5/weather?q=' + weatherSearchBar.value + '&units=metric&appid=08a09c29086a3f06cd37337b12b1711f')
@@ -25,12 +27,16 @@ searchBtnCmp.addEventListener("click", function() {
             newCloudValue.classList.add("cloudMarginAdjustment");
             let newMaxTempValue = document.createElement("span");
             newMaxTempValue.classList.add("tempMarginAdjustment");
-            newMaxTempValue.innerHTML = data.main.temp_max;
+            newMaxTempValue.innerHTML = Math.round(data.main.temp_max);
+            let maxTempUnit = document.createElement("span");
+            maxTempUnit.innerHTML = "&#8451";
+            newMaxTempValue.appendChild(maxTempUnit);
             weatherMaxTempCmp.appendChild(newMaxTempValue);
             newCloudValue.innerHTML = data.weather[0].description;
             weatherCloudyCmp.appendChild(newCloudValue);
-            temperatureCmp.innerHTML = data.main.temp;
-            newWindVal.innerHTML = data.wind.speed;
+            temperatureCmp.innerHTML = Math.round(data.main.temp);
+            tempUnitCmp.innerHTML = "&#8451";
+            newWindVal.innerHTML = Math.round(data.wind.speed);
             weatherWindCmp.appendChild(newWindVal);
         })
         .catch(error => alert("Wrong City Name"))
@@ -45,6 +51,8 @@ function createDays() {
     for (let i = 0; i < nextDays; i++) {
         let newDate = new Date(today.setDate(today.getDate() + 1));
         daysSorted.push(days[newDate.getDay()]);
+    }
+    for (let i = 0; i < daysSorted.length; i++) {
         let newLiElement = document.createElement("li");
         newLiElement.textContent = daysSorted[i];
         daysList.appendChild(newLiElement);
@@ -80,23 +88,27 @@ fetch(apiUrl)
         iconArray.push(data.list[2].weather[0].icon);
         iconArray.push(data.list[10].weather[0].icon);
         iconArray.push(data.list[18].weather[0].icon);
-    })
 
-/* tried to fetch api url from flicker for changing background images,but encountering with an error */
+        function createIcon() {
+            let iconSet = document.querySelectorAll("ul > li");
+            for (let i = 0; i < iconArray.length && i < iconSet.length; i++) {
+                let newIconEle = document.createElement("span");
+                newIconEle.classList.add("iconStyle");
+                let imageUrl = "http://openweathermap.org/img/wn/" + iconArray[i] + "@2x.png";
+                newIconEle.innerHTML = "<img src=" + imageUrl + ">";
+                iconSet[i].appendChild(newIconEle);
+            }
+        }
+        createIcon();
+    });
 searchBtnCmp.addEventListener("click", function() {
-
-    const cityUrl = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=528fc5e2ec09109cd0696b0555e7bc81&tags=" + weatherSearchBar.value + "&format=json&nojsoncallback=1";
+    const cityUrl = "https://pixabay.com/api/?key=17019291-54fb257821b3ff9d5c88bcf61&q=" + weatherSearchBar.value + "&image_type=photo&pretty=true";
     console.log(cityUrl);
     fetch(cityUrl)
         .then(response => response.json())
         .then(data => {
-
-            let farmId = photos.photo[0].id;
-            let serverId = photos.photo[0].server;
-            let id = photos.photo[0].id;
-            let secretId = photos.photo[0].secret;
-            let backgroundImageUrl = "https://farm" + farmId + ".staticflickr.com/" + serverId + "/" + id + "_" + secretId + ".jpg";
+            const backgroundImageUrl = data.hits[0].largeImageURL;
             console.log(backgroundImageUrl);
-            document.getElementsByClassName("leftContainer").css('background-image', 'url(' + backgroundImageUrl + ')');
+            document.getElementsByClassName("leftContainer")[0].style.backgroundImage = `url(${backgroundImageUrl})`;
         })
 });

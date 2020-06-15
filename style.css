@@ -66,6 +66,10 @@ h1 {
     font-size: 50px;
 }
 
+#tempUnit {
+    font-size: 45px;
+}
+
 #name {
     margin-left: 50px;
     font-size: 25px;
@@ -104,4 +108,8 @@ h1 {
 
 .iconStyle {
     margin-left: 50px;
+}
+
+.unitOfWind {
+    color: white;
 }
