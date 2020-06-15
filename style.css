@@ -90,3 +90,26 @@ h1 {
 .tempMarginAdjustment {
     margin-left: 10px;
 }
+
+.weatherContainer {
+    line-height: 3.5;
+}
+
+#timeandDate {
+    color: white;
+    margin-top: 350px;
+    margin-left: 250px;
+    font-size: 25px;
+}
+
+.temperatureStyle {
+    margin-left: 80px;
+}
+
+.iconStyle {
+    margin-left: 50px;
+}
+
+.unitOfWind {
+    color: white;
+}

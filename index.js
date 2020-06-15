@@ -15,9 +15,9 @@ searchBtnCmp.addEventListener("click", function() {
     fetch('https://api.openweathermap.org/data/2.5/weather?q=' + weatherSearchBar.value + '&units=metric&appid=08a09c29086a3f06cd37337b12b1711f')
         .then(response => response.json())
         .then(data => {
-            let iconNew = data.weather[0].icon;
+            /* let iconNew = data.weather[0].icon;
             let imageUrl = "http://openweathermap.org/img/wn/" + iconNew + "@2x.png";
-            weatherIconCmp.innerHTML = "<img src=" + imageUrl + ">";
+            weatherIconCmp.innerHTML = "<img src=" + imageUrl + ">"; */
             let newPlaceName = document.createElement("span");
             newPlaceName.innerHTML = data.name;
             nameCmp.appendChild(newPlaceName);
@@ -38,6 +38,51 @@ searchBtnCmp.addEventListener("click", function() {
             tempUnitCmp.innerHTML = "&#8451";
             newWindVal.innerHTML = Math.round(data.wind.speed);
             weatherWindCmp.appendChild(newWindVal);
+            let weatherIcon = data.weather[0].icon;
+            let icons = new Skycons({ "color": "white" });
+            icons.set("weatherIcon", Skycons.CLEAR_DAY);
+            icons.set("weatherIcon", Skycons.CLEAR_NIGHT);
+            icons.set("weatherIcon", Skycons.PARTLY_CLOUDY_DAY);
+            icons.set("weatherIcon", Skycons.PARTLY_CLOUDY_NIGHT);
+            icons.set("weatherIcon", Skycons.CLOUDY);
+            icons.set("weatherIcon", Skycons.RAIN);
+            icons.set("weatherIcon", Skycons.SLEET);
+            icons.set("weatherIcon", Skycons.SNOW);
+            icons.set("weatherIcon", Skycons.WIND);
+            icons.set("weatherIcon", Skycons.FOG);
+
+            switch (weatherIcon) {
+                case "01d":
+                    skycons.add(document.getElementById("weatherIcon"), Skycons.CLEAR_DAY);
+                    break;
+                case "01n":
+                    skycons.add(document.getElementById("weatherIcon"), Skycons.CLEAR_NIGHT);
+                    break;
+                case "02d":
+                    skycons.add(document.getElementById("weatherIcon"), Skycons.PARTLY_CLOUDY_DAY);
+                    break;
+                case "02n":
+                    skycons.add(document.getElementById("weatherIcon"), Skycons.PARTLY_CLOUDY_NIGHT);
+                    break;
+                case "03d":
+                    skycons.add(document.getElementById("weatherIcon"), Skycons.CLOUDY);
+                    break;
+                case "09d":
+                    skycons.add(document.getElementById("weatherIcon"), Skycons.RAIN);
+                    break;
+                case "13d":
+                    skycons.add(document.getElementById("weatherIcon"), Skycons.SNOW);
+                    break;
+                case "50d":
+                    skycons.add(document.getElementById("weatherIcon"), Skycons.FOG);
+                    break;
+
+                default:
+
+            }
+
+
+            skycons.play();
         })
         .catch(error => alert("Wrong City Name"))
 });
