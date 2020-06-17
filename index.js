@@ -36,6 +36,7 @@ searchBtnCmp.addEventListener("click", function() {
             newWindVal.innerHTML = Math.round(data.wind.speed);
             weatherWindCmp.appendChild(newWindVal);
             let openWeatherIcon = data.weather[0].icon;
+            console.log(openWeatherIcon);
             let weatherIconImg = document.createElement("img");
             weatherIconImg.classList.add("iconSize");
             switch (openWeatherIcon) {
@@ -55,21 +56,27 @@ searchBtnCmp.addEventListener("click", function() {
                     weatherIconImg.src = "cloudy-night-1.svg";
                     /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
                     break;
+                case "03n":
+                    weatherIconImg.src = "cloudy-night-3.svg";
+                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
+                    break;
 
                 case "03d":
                     weatherIconImg.src = "cloudy.svg";
                     /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
                     break;
-                case "09d":
+                case "10d":
                     weatherIconImg.src = "rainy-1.svg";
                     /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
                     break;
+                case "04d":
+                    weatherIconImg.src = "cloudy-day-2.svg";
                 case "13d":
                     weatherIconImg.src = "snowy-1.svg";
                     /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
                     break;
-                case "50d":
-                    weatherIconImg.src = "weather-sprite.svg";
+                case "50n":
+                    weatherIconImg.src = "snowy-1.svg";
                     /*  document.getElementById("weatherIcon").appendChild(weatherIconImg); */
                     break;
 
