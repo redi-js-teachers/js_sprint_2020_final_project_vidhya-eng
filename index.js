@@ -15,9 +15,6 @@ searchBtnCmp.addEventListener("click", function() {
     fetch('https://api.openweathermap.org/data/2.5/weather?q=' + weatherSearchBar.value + '&units=metric&appid=08a09c29086a3f06cd37337b12b1711f')
         .then(response => response.json())
         .then(data => {
-            /* let iconNew = data.weather[0].icon;
-            let imageUrl = "http://openweathermap.org/img/wn/" + iconNew + "@2x.png";
-            weatherIconCmp.innerHTML = "<img src=" + imageUrl + ">"; */
             let newPlaceName = document.createElement("span");
             newPlaceName.innerHTML = data.name;
             nameCmp.appendChild(newPlaceName);
@@ -38,60 +35,51 @@ searchBtnCmp.addEventListener("click", function() {
             tempUnitCmp.innerHTML = "&#8451";
             newWindVal.innerHTML = Math.round(data.wind.speed);
             weatherWindCmp.appendChild(newWindVal);
-            /* Trying to retrieve animated icon...Not Working */
             let openWeatherIcon = data.weather[0].icon;
-            console.log(openWeatherIcon);
-            let skycons = new Skycons({ 'color': 'white' });
-
-            var iconList = [
-                "CLEAR_DAY",
-                "CLEAR_NIGHT",
-                "PARTLY_CLOUDY_DAY",
-                "PARTLY_CLOUDY_NIGHT",
-                "CLOUDY",
-                "RAIN",
-                "SLEET",
-                "SNOW",
-                "WIND",
-                "FOG"
-            ];
-            console.log(icons);
-            for (let i = 0; i < iconList.length; i++) {
-                if (openWeatherIcon == iconList[i]) {
-                    skycons.set('weatherIcon', iconList[i]);
-
-                }
-            }
+            let weatherIconImg = document.createElement("img");
+            weatherIconImg.classList.add("iconSize");
             switch (openWeatherIcon) {
                 case "01d":
-                    skycons.add(document.getElementById("weatherIcon"), Skycons.CLEAR_DAY);
+                    weatherIconImg.src = "day.svg";
+                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
                     break;
                 case "01n":
-                    skycons.add(document.getElementById("weatherIcon"), Skycons.CLEAR_NIGHT);
+                    weatherIconImg.src = "night.svg";
+                    /*  document.getElementById("weatherIcon").appendChild(weatherIconImg); */
                     break;
                 case "02d":
-                    skycons.add(document.getElementById("weatherIcon"), Skycons.PARTLY_CLOUDY_DAY);
+                    weatherIconImg.src = "cloudy-night-1.svg";
+                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
                     break;
                 case "02n":
-                    skycons.add(document.getElementById("weatherIcon"), Skycons.PARTLY_CLOUDY_NIGHT);
+                    weatherIconImg.src = "cloudy-night-1.svg";
+                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
                     break;
+
                 case "03d":
-                    skycons.add(document.getElementById("weatherIcon"), Skycons.CLOUDY);
+                    weatherIconImg.src = "cloudy.svg";
+                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
                     break;
                 case "09d":
-                    skycons.add(document.getElementById("weatherIcon"), Skycons.RAIN);
+                    weatherIconImg.src = "rainy-1.svg";
+                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
                     break;
                 case "13d":
-                    skycons.add(document.getElementById("weatherIcon"), Skycons.SNOW);
+                    weatherIconImg.src = "snowy-1.svg";
+                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
                     break;
                 case "50d":
-                    skycons.add(document.getElementById("weatherIcon"), Skycons.FOG);
+                    weatherIconImg.src = "weather-sprite.svg";
+                    /*  document.getElementById("weatherIcon").appendChild(weatherIconImg); */
                     break;
 
                 default:
-                    skycons.add(document.getElementById("weatherIcon"), Skycons.CLEAR_DAY);
+                    weatherIconImg.src = "day.svg";
+                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
+
             }
-            skycons.play();
+            document.getElementById("weatherIcon").appendChild(weatherIconImg);
+
         })
         .catch(error => alert("Wrong City Name"))
 });

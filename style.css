@@ -113,3 +113,8 @@ h1 {
 .unitOfWind {
     color: white;
 }
+
+.iconSize {
+    width: 200px;
+    height: 250px;
+}
