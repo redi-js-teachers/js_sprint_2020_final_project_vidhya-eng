@@ -38,20 +38,31 @@ searchBtnCmp.addEventListener("click", function() {
             tempUnitCmp.innerHTML = "&#8451";
             newWindVal.innerHTML = Math.round(data.wind.speed);
             weatherWindCmp.appendChild(newWindVal);
-            let weatherIcon = data.weather[0].icon;
-            let icons = new Skycons({ "color": "white" });
-            icons.set("weatherIcon", Skycons.CLEAR_DAY);
-            icons.set("weatherIcon", Skycons.CLEAR_NIGHT);
-            icons.set("weatherIcon", Skycons.PARTLY_CLOUDY_DAY);
-            icons.set("weatherIcon", Skycons.PARTLY_CLOUDY_NIGHT);
-            icons.set("weatherIcon", Skycons.CLOUDY);
-            icons.set("weatherIcon", Skycons.RAIN);
-            icons.set("weatherIcon", Skycons.SLEET);
-            icons.set("weatherIcon", Skycons.SNOW);
-            icons.set("weatherIcon", Skycons.WIND);
-            icons.set("weatherIcon", Skycons.FOG);
+            /* Trying to retrieve animated icon...Not Working */
+            let openWeatherIcon = data.weather[0].icon;
+            console.log(openWeatherIcon);
+            let skycons = new Skycons({ 'color': 'white' });
 
-            switch (weatherIcon) {
+            var iconList = [
+                "CLEAR_DAY",
+                "CLEAR_NIGHT",
+                "PARTLY_CLOUDY_DAY",
+                "PARTLY_CLOUDY_NIGHT",
+                "CLOUDY",
+                "RAIN",
+                "SLEET",
+                "SNOW",
+                "WIND",
+                "FOG"
+            ];
+            console.log(icons);
+            for (let i = 0; i < iconList.length; i++) {
+                if (openWeatherIcon == iconList[i]) {
+                    skycons.set('weatherIcon', iconList[i]);
+
+                }
+            }
+            switch (openWeatherIcon) {
                 case "01d":
                     skycons.add(document.getElementById("weatherIcon"), Skycons.CLEAR_DAY);
                     break;
@@ -78,10 +89,8 @@ searchBtnCmp.addEventListener("click", function() {
                     break;
 
                 default:
-
+                    skycons.add(document.getElementById("weatherIcon"), Skycons.CLEAR_DAY);
             }
-
-
             skycons.play();
         })
         .catch(error => alert("Wrong City Name"))
