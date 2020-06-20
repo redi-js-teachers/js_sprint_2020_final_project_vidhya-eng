@@ -36,54 +36,40 @@ searchBtnCmp.addEventListener("click", function() {
             newWindVal.innerHTML = Math.round(data.wind.speed);
             weatherWindCmp.appendChild(newWindVal);
             let openWeatherIcon = data.weather[0].icon;
-            console.log(openWeatherIcon);
             let weatherIconImg = document.createElement("img");
             weatherIconImg.classList.add("iconSize");
             switch (openWeatherIcon) {
                 case "01d":
-                    weatherIconImg.src = "day.svg";
-                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
+                    weatherIconImg.src = "Assets/day.svg";
                     break;
                 case "01n":
-                    weatherIconImg.src = "night.svg";
-                    /*  document.getElementById("weatherIcon").appendChild(weatherIconImg); */
+                    weatherIconImg.src = "Assets/night.svg";
                     break;
                 case "02d":
-                    weatherIconImg.src = "cloudy-night-1.svg";
-                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
-                    break;
+                    weatherIconImg.src = "Assets/cloudy-night-1.svg";
                 case "02n":
-                    weatherIconImg.src = "cloudy-night-1.svg";
-                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
+                    weatherIconImg.src = "Assets/cloudy-night-1.svg";
                     break;
                 case "03n":
-                    weatherIconImg.src = "cloudy-night-3.svg";
-                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
+                    weatherIconImg.src = "Assets/cloudy-night-3.svg";
                     break;
-
                 case "03d":
-                    weatherIconImg.src = "cloudy.svg";
-                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
+                    weatherIconImg.src = "Assets/cloudy.svg";
                     break;
-                case "10d":
-                    weatherIconImg.src = "rainy-1.svg";
-                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
+                case "09d":
+                    weatherIconImg.src = "Assets/rainy-1.svg";
                     break;
                 case "04d":
-                    weatherIconImg.src = "cloudy-day-2.svg";
+                    weatherIconImg.src = "Assets/cloudy-day-2.svg";
+                    break;
                 case "13d":
-                    weatherIconImg.src = "snowy-1.svg";
-                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
+                    weatherIconImg.src = "Assets/snowy-1.svg";
                     break;
                 case "50n":
-                    weatherIconImg.src = "snowy-1.svg";
-                    /*  document.getElementById("weatherIcon").appendChild(weatherIconImg); */
+                    weatherIconImg.src = "Assets/snowy-1.svg";
                     break;
-
                 default:
-                    weatherIconImg.src = "day.svg";
-                    /* document.getElementById("weatherIcon").appendChild(weatherIconImg); */
-
+                    weatherIconImg.src = "Assets/day.svg";
             }
             document.getElementById("weatherIcon").appendChild(weatherIconImg);
 
