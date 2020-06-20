@@ -40,36 +40,36 @@ searchBtnCmp.addEventListener("click", function() {
             weatherIconImg.classList.add("iconSize");
             switch (openWeatherIcon) {
                 case "01d":
-                    weatherIconImg.src = "Assets/day.svg";
+                    weatherIconImg.src = "assets/day.svg";
                     break;
                 case "01n":
-                    weatherIconImg.src = "Assets/night.svg";
+                    weatherIconImg.src = "assets/night.svg";
                     break;
                 case "02d":
-                    weatherIconImg.src = "Assets/cloudy-night-1.svg";
+                    weatherIconImg.src = "assets/cloudy-night-1.svg";
                 case "02n":
-                    weatherIconImg.src = "Assets/cloudy-night-1.svg";
+                    weatherIconImg.src = "assets/cloudy-night-1.svg";
                     break;
                 case "03n":
-                    weatherIconImg.src = "Assets/cloudy-night-3.svg";
+                    weatherIconImg.src = "assets/cloudy-night-3.svg";
                     break;
                 case "03d":
-                    weatherIconImg.src = "Assets/cloudy.svg";
+                    weatherIconImg.src = "assets/cloudy.svg";
                     break;
                 case "09d":
-                    weatherIconImg.src = "Assets/rainy-1.svg";
+                    weatherIconImg.src = "assets/rainy-1.svg";
                     break;
                 case "04d":
-                    weatherIconImg.src = "Assets/cloudy-day-2.svg";
+                    weatherIconImg.src = "assets/cloudy-day-2.svg";
                     break;
                 case "13d":
-                    weatherIconImg.src = "Assets/snowy-1.svg";
+                    weatherIconImg.src = "assets/snowy-1.svg";
                     break;
                 case "50n":
-                    weatherIconImg.src = "Assets/snowy-1.svg";
+                    weatherIconImg.src = "assets/snowy-1.svg";
                     break;
                 default:
-                    weatherIconImg.src = "Assets/day.svg";
+                    weatherIconImg.src = "assets/day.svg";
             }
             document.getElementById("weatherIcon").appendChild(weatherIconImg);
 
