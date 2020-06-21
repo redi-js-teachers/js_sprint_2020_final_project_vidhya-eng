@@ -15,9 +15,6 @@ searchBtnCmp.addEventListener("click", function() {
     fetch('https://api.openweathermap.org/data/2.5/weather?q=' + weatherSearchBar.value + '&units=metric&appid=08a09c29086a3f06cd37337b12b1711f')
         .then(response => response.json())
         .then(data => {
-            let iconNew = data.weather[0].icon;
-            let imageUrl = "http://openweathermap.org/img/wn/" + iconNew + "@2x.png";
-            weatherIconCmp.innerHTML = "<img src=" + imageUrl + ">";
             let newPlaceName = document.createElement("span");
             newPlaceName.innerHTML = data.name;
             nameCmp.appendChild(newPlaceName);
@@ -38,6 +35,44 @@ searchBtnCmp.addEventListener("click", function() {
             tempUnitCmp.innerHTML = "&#8451";
             newWindVal.innerHTML = Math.round(data.wind.speed);
             weatherWindCmp.appendChild(newWindVal);
+            let openWeatherIcon = data.weather[0].icon;
+            let weatherIconImg = document.createElement("img");
+            weatherIconImg.classList.add("iconSize");
+            switch (openWeatherIcon) {
+                case "01d":
+                    weatherIconImg.src = "assets/day.svg";
+                    break;
+                case "01n":
+                    weatherIconImg.src = "assets/night.svg";
+                    break;
+                case "02d":
+                    weatherIconImg.src = "assets/cloudy-night-1.svg";
+                case "02n":
+                    weatherIconImg.src = "assets/cloudy-night-1.svg";
+                    break;
+                case "03n":
+                    weatherIconImg.src = "assets/cloudy-night-3.svg";
+                    break;
+                case "03d":
+                    weatherIconImg.src = "assets/cloudy.svg";
+                    break;
+                case "09d":
+                    weatherIconImg.src = "assets/rainy-1.svg";
+                    break;
+                case "04d":
+                    weatherIconImg.src = "assets/cloudy-day-2.svg";
+                    break;
+                case "13d":
+                    weatherIconImg.src = "assets/snowy-1.svg";
+                    break;
+                case "50n":
+                    weatherIconImg.src = "assets/snowy-1.svg";
+                    break;
+                default:
+                    weatherIconImg.src = "assets/day.svg";
+            }
+            document.getElementById("weatherIcon").appendChild(weatherIconImg);
+
         })
         .catch(error => alert("Wrong City Name"))
 });
