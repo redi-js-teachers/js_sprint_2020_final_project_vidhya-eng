@@ -147,3 +147,7 @@ searchBtnCmp.addEventListener("click", function() {
             document.getElementsByClassName("leftContainer")[0].style.backgroundImage = `url(${backgroundImageUrl})`;
         })
 });
+
+function resetValues() {
+
+}
